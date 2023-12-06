@@ -1,0 +1,42 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title New Registration
+    link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css", rel="stylesheet", integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN", crossorigin="anonymous")
+    script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js", integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL", crossorigin="anonymous")
+  body 
+    section.container-fluid
+      section.row
+        section.col-4.m-auto.card.mt-4
+          if(message !== "")
+            #message
+             .alert.alert-primary(role="alert") #{message}
+            script.
+              let message = "#{message}";
+               if(message !== ""){
+                  setTimeout(()=>{
+                    document.querySelector('#message').innerHTML = ""
+                  },2000)
+               }
+          p.mb-0.text-center.h4.mt-2.text-primary user Registration
+          form(action="/save-user" method="post")
+            .mb-3
+              label.form-label(for="fullName") Full Name
+              input.form-control#fullName(name="fullName" type="text", placeholder="Enter Full Name" required)
+            .mb-3
+              label.form-label(for="mobile") Mobile
+              input.form-control#mobile(name="mobile" type="text", placeholder="Enter Full Mobile" required)
+            .mb-3
+              label.form-label(for="email") Email
+              input.form-control#email(name="email" type="email", placeholder="Enter Email" required)     
+            .mb-3
+              label.form-label(for="password") Password
+              input.form-control#password(name="password" type="password", placeholder="Enter Full Name" required)
+            .mb-3
+              label.form-label(for="confirmPassword") Confirm Password
+              input.form-control#confirmPassword(name="cPassword" type="text", placeholder="Enter confirmPassword" required)
+            .mb-3.text-center
+              button(type="submit").btn.btn-success Save
+              button(type="reset").ms-2.btn.btn-outline-danger Reset
