@@ -26,6 +26,10 @@ const BasicController = {
         mobile: data.mobile,
         email: data.email,
       });
+
+      UserModel.find({email:{$regex:"^"+email+"$", Option:"i"}})
+
+
       let result = await newUser.save();
       if (result) {
         request.session.message = "user Registration Done Successfully";
