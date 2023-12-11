@@ -11,7 +11,7 @@ html(lang="en")
       section.row
         section.col-4.m-auto.card.mt-4
           if(message !== "")
-            #message
+            #message.mt-1
              .alert.alert-primary(role="alert") #{message}
             script.
               let message = "#{message}";
@@ -24,19 +24,24 @@ html(lang="en")
           form(action="/save-user" method="post")
             .mb-3
               label.form-label(for="fullName") Full Name
-              input.form-control#fullName(name="fullName" type="text", placeholder="Enter Full Name" required)
+              input.form-control#fullName(name="fullName" type="text", placeholder="Enter Full Name" required values=newUser.fullName)
             .mb-3
               label.form-label(for="mobile") Mobile
-              input.form-control#mobile(name="mobile" type="text", placeholder="Enter Full Mobile" required)
+              input.form-control#mobile(name="mobile" type="text", placeholder="Enter  Mobile Number" required values=newUser.mobile)
             .mb-3
               label.form-label(for="email") Email
-              input.form-control#email(name="email" type="email", placeholder="Enter Email" required)     
+              input.form-control#email(name="email" type="email", placeholder="Enter Email" required values=newUser.email)     
             .mb-3
               label.form-label(for="password") Password
-              input.form-control#password(name="password" type="password", placeholder="Enter Full Name" required)
+              input.form-control#password(name="password" type="password", placeholder="Enter Password" required values=newUser.password)
             .mb-3
               label.form-label(for="confirmPassword") Confirm Password
-              input.form-control#confirmPassword(name="cPassword" type="text", placeholder="Enter confirmPassword" required)
-            .mb-3.text-center
+              input.form-control#confirmPassword(name="cPassword" type="text", placeholder="Enter confirmPassword" required values=newUser.cPassword)
+            .mb-1.text-center
               button(type="submit").btn.btn-success Save
               button(type="reset").ms-2.btn.btn-outline-danger Reset
+            .mb-3.text-center
+              p 
+                | Already have a account link
+                a.mx-2(href="/login") here 
+                | to login. 
