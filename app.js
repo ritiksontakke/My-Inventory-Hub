@@ -14,6 +14,8 @@ app.use(
   })
 );
 
+app.use(express.static("public"));
+
 //set view
 app.set("views", "./views");
 app.set("view engine", "pug");

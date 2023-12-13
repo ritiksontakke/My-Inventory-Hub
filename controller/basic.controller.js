@@ -1,4 +1,5 @@
 const UserModel = require("../model/user.model");
+const ProductModel = require("../model/product.model");
 
 const BasicController = {
   homePage(request, response) {
@@ -6,8 +7,8 @@ const BasicController = {
       response.redirect("/login");
       return false;
     }
-    response.render("dashboard",{
-      login:request.session.login,
+    response.render("dashboard", {
+      login: request.session.login,
     });
   },
   logout(request, response) {
@@ -109,10 +110,36 @@ const BasicController = {
       response.redirect("/login");
     }
   },
-  async saveProduct(request, response){
-    let data = request.body;
-    response.json({status:true, data})
-  }
+  async saveProduct(request, response) {
+    try {
+      let { productName, qty, price, mangDate } = request.body;
+      let newProduct = ProductModel({
+        productName,
+        qty,
+        price,
+        mangDate,
+      });
+      let result = await newProduct.save();
+      if (result) {
+        response.json({ status: true, message: "product saved " });
+      } else {
+        response.json({
+          status: false,
+          message: "unable to saved product try again",
+        });
+      }
+    } catch (error) {
+      response.json({ status: false, message: "server error try again" });
+    }
+  },
+  async getProduct(request, response) {
+    try {
+      let result = await ProductModel.find();
+      response.json({ status: true, result });
+    } catch (error) {
+      response.json({ status: false, message: "server error try again" });
+    }
+  },
 };
 
 module.exports = BasicController;

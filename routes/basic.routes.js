@@ -1,5 +1,5 @@
 const multer = require("multer");
-const upload = multer();//add multipart from data
+const upload = multer(); //add multipart from data
 const BasicController = require("../controller/basic.controller");
 
 const BasicRouter = require("express").Router();
@@ -12,6 +12,8 @@ BasicRouter.get("/logout", BasicController.logout);
 
 BasicRouter.post("/save-user", BasicController.saveUser);
 BasicRouter.post("/user-login", BasicController.userLogin);
+
+BasicRouter.get("/api/get-product", BasicController.getProduct);
 BasicRouter.post(
   "/api/save-new-product",
   upload.none(),
