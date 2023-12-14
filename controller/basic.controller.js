@@ -140,6 +140,16 @@ const BasicController = {
       response.json({ status: false, message: "server error try again" });
     }
   },
+
+  async removeProduct(request,response){
+    let {id} = request.params;
+    try {
+       await ProductModel.findByIdAndDelete(id);
+      response.json({ status: true, message:'product removed successfully' });
+    } catch (error) {
+      response.json({ status: false, message: "server error try again" });
+    }
+  }
 };
 
 module.exports = BasicController;

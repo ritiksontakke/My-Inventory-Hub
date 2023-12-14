@@ -9,39 +9,43 @@ html(lang="en")
     script(src="/js/product.client.js") 
   body
      section.container-fluid
-       section.row.border-bottom.border-2
+      .modal.fade(tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false")#addNewProduct
+        .modal-dialog
+          .modal-content
+            .modal-header
+              h5.modal-title Add New Product
+              button.btn-close(type="button", data-bs-dismiss="modal", aria-label="Close")
+            .modal-body
+              form
+                .mb-3
+                  label.form-label(for="productName") Name
+                  input.form-control#productName(type="text")
+                .mb-3
+                  label.form-label(for="qty") Qty
+                  input.form-control#qty(type="number")
+                .mb-3
+                  label.form-label(for="price") price
+                  input.form-control#price(type="number")
+                .mb-3
+                  label.form-label(for="mangDate") Mang Date
+                  input.form-control#mangDate(type="Date")
+                div.text-center  
+                button.btn.btn-primary#saveNewProductBtn(type="button") Submit
+                button.btn.btn-outline-danger.mx-2(type="reset") Reset        
+      section.row.border-bottom.border-2
         section.col-11.m-auto.d-flex.justify-content-between.py-3
           p.h4.mb-0 Welcome #{login.user.name.split(' ')[0]}
           a.btn.btn-danger.btn-sm(href="/logout") Logout
-       section.row    
+      section.row    
         section.col-10.m-auto
             p.mt-2.text-center.fs-3.text-primary Product page
-            table.table.table-bordered.mt-4
-              <thead>
-                <tr>
-                  <th scope="col">sr . No</th>
-                  <th scope="col">Name</th>
-                  <th scope="col">Cost</th>
-                  <th scope="col">Quantity</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                  <td>@fat</td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td colspan="2">Larry the Bird</td>
-                  <td>@twitter</td>
-                </tr>
-              </tbody>
-            </table>
+            button.btn.btn-primary.btn-sm.mb-2(data-bs-toggle="modal" data-bs-target="#addNewProduct") + Add
+            table.table.table-bordered
+             thead
+                tr
+                  th(width="10%") Sr.No
+                  th(width="55%") Name
+                  th(width="20%") Cost
+                  th(scope="25") Quantity
+                  th(scope="15") Action
+             tbody#tbody

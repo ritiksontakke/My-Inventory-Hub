@@ -20,4 +20,5 @@ BasicRouter.post(
   BasicController.saveProduct
 );
 
+BasicRouter.delete("/api/remove-product/:id", BasicController.removeProduct)
 module.exports = BasicRouter;
