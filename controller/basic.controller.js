@@ -112,12 +112,13 @@ const BasicController = {
   },
   async saveProduct(request, response) {
     try {
-      let { productName, qty, price, mangDate } = request.body;
+      let { productName, qty, price, mangDate, id } = request.body;
       let newProduct = ProductModel({
         productName,
         qty,
         price,
         mangDate,
+        id,
       });
       let result = await newProduct.save();
       if (result) {
@@ -134,22 +135,32 @@ const BasicController = {
   },
   async getProduct(request, response) {
     try {
-      let result = await ProductModel.find();
-      response.json({ status: true, result });
+      if (request.session.login !== undefined) {
+        let result = await ProductModel.find({
+          id: request.session.login.user._id,
+        });
+        response.json({ status: true, result });
+      } else {
+        response.status(401).json({
+          status: false,
+          message: "Session is expire re-login again",
+        });
+      }
+    } catch (error) {
+      response
+        .json({ status: false, message: "server error try again" });
+    }
+  },
+
+  async removeProduct(request, response) {
+    let { id } = request.params;
+    try {
+      await ProductModel.findByIdAndDelete(id);
+      response.json({ status: true, message: "product removed successfully" });
     } catch (error) {
       response.json({ status: false, message: "server error try again" });
     }
   },
-
-  async removeProduct(request,response){
-    let {id} = request.params;
-    try {
-       await ProductModel.findByIdAndDelete(id);
-      response.json({ status: true, message:'product removed successfully' });
-    } catch (error) {
-      response.json({ status: false, message: "server error try again" });
-    }
-  }
 };
 
 module.exports = BasicController;
