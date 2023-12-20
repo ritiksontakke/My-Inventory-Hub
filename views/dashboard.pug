@@ -18,22 +18,29 @@ html(lang="en")
               h5.modal-title Add New Product
               button.btn-close(type="button", data-bs-dismiss="modal", aria-label="Close")
             .modal-body
-              form
-                .mb-3
-                  label.form-label(for="productName") Name
-                  input.form-control#productName(type="text")
-                .mb-3
-                  label.form-label(for="qty") Qty
-                  input.form-control#qty(type="number")
-                .mb-3
-                  label.form-label(for="price") price
-                  input.form-control#price(type="number")
-                .mb-3
-                  label.form-label(for="mangDate") Mang Date
-                  input.form-control#mangDate(type="Date")
-                div.text-center  
-                button.btn.btn-primary#saveNewProductBtn(type="button") Submit
-                button.btn.btn-outline-danger.mx-2(type="reset") Reset        
+              .row
+                .col-8
+                  form
+                    .mb-3
+                      label.form-label(for="productName") Name
+                      input.form-control#productName(type="text")
+                    .mb-3
+                      label.form-label(for="qty") Qty
+                      input.form-control#qty(type="number")
+                    .mb-3
+                      label.form-label(for="price") price
+                      input.form-control#price(type="number")
+                    .mb-3
+                      label.form-label(for="mangDate") Mang Date
+                      input.form-control#mangDate(type="Date")
+                    .mb-3
+                      label.form-label(for="mangDate") Product Image
+                      input.form-control#pic(type="file" name="pic")
+                    div.text-center  
+                    button.btn.btn-primary#saveNewProductBtn(type="button") Submit
+                    button.btn.btn-outline-danger.mx-2(type="reset") Reset        
+                .col-4.d-flex.align-items-center
+                  img#preview.border(src="", alt="" style="height:150px;width:150px")
       section.row.border-bottom.border-2
         section.col-11.m-auto.d-flex.justify-content-between.py-3
           p.h4.mb-0 Welcome #{login.user.name.split(' ')[0]}

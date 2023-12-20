@@ -119,10 +119,14 @@ const BasicController = {
         price,
         mangDate,
         id,
+        image: request.file.filename,
       });
       let result = await newProduct.save();
       if (result) {
-        response.json({ status: true, message: "product saved " });
+        response.json({
+          status: true,
+          message: "product saved ",
+        });
       } else {
         response.json({
           status: false,
@@ -147,8 +151,7 @@ const BasicController = {
         });
       }
     } catch (error) {
-      response
-        .json({ status: false, message: "server error try again" });
+      response.json({ status: false, message: "server error try again" });
     }
   },
 

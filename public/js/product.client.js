@@ -2,23 +2,48 @@ window.addEventListener("load", () => {
   let list = [];
   let tbody = document.querySelector("#tbody");
   let saveNewProductBtn = document.querySelector("#saveNewProductBtn");
+  let imageFileElement = document.getElementById("pic");
+
+  imageFileElement.addEventListener("change", () => {
+    if (imageFileElement.files[0] !== undefined) {
+      let reader = new FileReader();
+      reader.onload = () => {
+        console.log(reader.result);
+      };
+      reader.readAsDataURL(imageFileElement.files[0])
+    }
+  });
 
   saveNewProductBtn.addEventListener("click", async () => {
-    let newProduct = {
-      productName: document.querySelector("#productName").value,
-      qty: document.querySelector("#qty").value,
-      price: document.querySelector("#price").value,
-      mangDate: document.querySelector("#mangDate").value,
-      id: id,
-    };
+    let productFile = document.querySelector("#pic");
+    let file = productFile.files[0];
+    if (file === undefined) {
+      alert("Please select a file");
+      return false;
+    }
+
+    //FormData
+    let formData = new FormData();
+
+    formData.append(
+      "productName",
+      document.querySelector("#productName").value
+    );
+    formData.append("qty", document.querySelector("#qty").value);
+    formData.append("price", document.querySelector("#price").value);
+    formData.append("mangDate", document.querySelector("#mangDate").value);
+    formData.append("id", id);
+    formData.append("pic", file);
+
     let url = `http://localhost:3031/api/save-new-product`;
     let option = {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        // "Content-Type": "application/json",
         // 'Content-Type': 'application/x-www-form-urlencoded',
+        // "Content-Type": "multipart/form-data",
       },
-      body: JSON.stringify(newProduct),
+      body: formData,
     };
     try {
       let response = await fetch(url, option);
@@ -32,6 +57,7 @@ window.addEventListener("load", () => {
             document.querySelector("#qty").value =
             document.querySelector("#price").value =
             document.querySelector("#mangDate").value =
+            document.querySelector("#pic").value =
               "";
         } else {
           window.location.reload();
@@ -67,7 +93,9 @@ window.addEventListener("load", () => {
       .map((product, index) => {
         return `<tr>
                   <th scope="row">${index + 1}</th>
-                  <td>${product.productName}</td>
+                  <td>
+                  <img src="/images/${product.image}" width="50" />
+                  ${product.productName}</td>
                   <td>Rs. ${product.price}</td>
                   <td>${product.qty} Units</td>
                   <td><button data-remove-id="${
