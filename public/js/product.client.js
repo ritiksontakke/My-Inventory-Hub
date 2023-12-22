@@ -19,10 +19,10 @@ window.addEventListener("load", () => {
       } else {
         alert("File must of type JPG/JPEG/PNG");
         imageFileElement.value = "";
-        document.querySelector("#preview").src = "";
+        document.querySelector("#preview").src = "/demo_pic/preview.jpg";
       }
     }else {
-      document.querySelector("#preview").src = "";
+      document.querySelector("#preview").src = "/demo_pic/preview.jpg";
     }
   });
 
