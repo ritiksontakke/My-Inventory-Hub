@@ -4,8 +4,9 @@ const express = require("express");
 const mongoose = require("mongoose");
 const BasicRouter = require("./routes/basic.routes");
 var session = require("express-session");
+let morgan = require("morgan");
 const app = express();
-
+app.use(morgan("tiny"));
 app.use(
   session({
     secret: "3riTech",
