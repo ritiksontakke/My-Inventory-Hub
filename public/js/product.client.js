@@ -6,11 +6,23 @@ window.addEventListener("load", () => {
 
   imageFileElement.addEventListener("change", () => {
     if (imageFileElement.files[0] !== undefined) {
-      let reader = new FileReader();
-      reader.onload = () => {
-        console.log(reader.result);
-      };
-      reader.readAsDataURL(imageFileElement.files[0])
+      let ext = imageFileElement.files[0].name.substring(
+        imageFileElement.files[0].name.lastIndexOf(".") + 1
+      );
+      ext = ext.toLowerCase();
+      if (ext === "png" || ext === "jpg" || ext === "jpeg") {
+        let reader = new FileReader();
+        reader.onload = () => {
+          document.querySelector("#preview").src = reader.result;
+        };
+        reader.readAsDataURL(imageFileElement.files[0]);
+      } else {
+        alert("File must of type JPG/JPEG/PNG");
+        imageFileElement.value = "";
+        document.querySelector("#preview").src = "";
+      }
+    }else {
+      document.querySelector("#preview").src = "";
     }
   });
 
