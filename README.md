@@ -17,7 +17,6 @@ My Inventory Hub is a user-friendly inventory management system that allows user
 
 -  MongoDB
 -  Express.js
--  React
 -  Node.js
 
 ## Features
