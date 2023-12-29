@@ -10,6 +10,8 @@ BasicRouter.get("/logout", BasicController.logout);
 
 BasicRouter.post("/save-user", BasicController.saveUser);
 BasicRouter.post("/user-login", BasicController.userLogin);
+BasicRouter.post("/api/user-login", BasicController.apiUserLogin);
+
 
 BasicRouter.get("/api/get-product", BasicController.getProduct);
 BasicRouter.post(

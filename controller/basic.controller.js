@@ -110,6 +110,32 @@ const BasicController = {
       response.redirect("/login");
     }
   },
+
+  async apiUserLogin(request, response) {
+    let data = request.body;
+    try {
+      let user = await UserModel.findOne(
+        {
+          email: { $regex: `^${data.email}$`, $options: "i" },
+          password: data.password,
+        },
+        { password: 0 }
+      );
+      if (user) {
+        response.json({ status: true, token: "jwt" });
+      } else {
+        request.json({
+          status: false,
+          message: "Username or password is wrong, try again",
+        });
+      }
+    } catch (error) {
+      response.json({
+        status: false,
+        message: "Something went wrong, try again",
+      });
+    }
+  },
   async saveProduct(request, response) {
     try {
       let { productName, qty, price, mangDate, id } = request.body;
