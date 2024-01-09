@@ -1,5 +1,6 @@
 const BasicController = require("../controller/basic.controller");
 const { noUpload, uploadFile } = require("./middleware");
+const { loginValidation } = require("./vaildator");
 const BasicRouter = require("express").Router();
 
 BasicRouter.get("/", BasicController.homePage);
@@ -10,15 +11,18 @@ BasicRouter.get("/logout", BasicController.logout);
 
 BasicRouter.post("/save-user", BasicController.saveUser);
 BasicRouter.post("/user-login", BasicController.userLogin);
-BasicRouter.post("/api/user-login", BasicController.apiUserLogin);
-
+BasicRouter.post(
+  "/api/user-login",
+  loginValidation,
+  BasicController.apiUserLogin
+);
 
 BasicRouter.get("/api/get-product", BasicController.getProduct);
 BasicRouter.post(
   "/api/save-new-product",
-  uploadFile.single('pic'),
+  uploadFile.single("pic"),
   BasicController.saveProduct
 );
 
-BasicRouter.delete("/api/remove-product/:id", BasicController.removeProduct)
+BasicRouter.delete("/api/remove-product/:id", BasicController.removeProduct);
 module.exports = BasicRouter;

@@ -1,5 +1,6 @@
 const UserModel = require("../model/user.model");
 const ProductModel = require("../model/product.model");
+const jwt = require("jsonwebtoken");
 
 const BasicController = {
   homePage(request, response) {
@@ -122,7 +123,14 @@ const BasicController = {
         { password: 0 }
       );
       if (user) {
-        response.json({ status: true, token: "jwt" });
+        let payload = {
+          id: user.id,
+          name: user.name,
+          mobile: user.mobile,
+          email: user.email,
+        };
+        let token =  jwt.sign (payload, process.env.SECRET_KEY);
+        response.json({ status: true, token: token });
       } else {
         request.json({
           status: false,
