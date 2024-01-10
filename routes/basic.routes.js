@@ -17,6 +17,12 @@ BasicRouter.post(
   BasicController.apiUserLogin
 );
 
+BasicRouter.post(
+  "/api/get-users",
+  BasicController.apiGetUser
+);
+BasicRouter.get("/api/get-users", BasicController.apiGetUser);
+
 BasicRouter.get("/api/get-product", BasicController.getProduct);
 BasicRouter.post(
   "/api/save-new-product",

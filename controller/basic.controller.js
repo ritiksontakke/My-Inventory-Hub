@@ -198,6 +198,21 @@ const BasicController = {
       response.json({ status: false, message: "server error try again" });
     }
   },
+  async apiGetUser(request, response) {
+    try {
+      let userList = await UserModel.find({});
+        response.json({
+          status:true,
+          users:userList
+        })       
+      
+    } catch (error) {
+     response.json({
+      status:false,
+      error,
+     })
+    }
+  },
 };
 
 module.exports = BasicController;
