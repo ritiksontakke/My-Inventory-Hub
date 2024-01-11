@@ -199,6 +199,23 @@ const BasicController = {
     }
   },
   async apiGetUser(request, response) {
+    if(request.header.authorization===undefined){
+      response.status(403).json({
+        status:false,
+        message:"you are not allow to access this pages"
+      })
+      return false;   
+    }
+    let token = request.header.authorization.split(" ")[1];
+    if(token === undefined){
+      if(request.header.authorization===undefined){
+        response.status(403).json({
+          status:false,
+          message:"you are not allow to access this pages"
+        })
+        return false;   
+      }
+    }
     try {
       let userList = await UserModel.find({});
         response.json({
