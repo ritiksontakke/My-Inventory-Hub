@@ -129,7 +129,7 @@ const BasicController = {
           mobile: user.mobile,
           email: user.email,
         };
-        let token =  jwt.sign (payload, process.env.SECRET_KEY);
+        let token = jwt.sign(payload, process.env.SECRET_KEY);
         response.json({ status: true, token: token });
       } else {
         request.json({
@@ -199,35 +199,19 @@ const BasicController = {
     }
   },
   async apiGetUser(request, response) {
-    if(request.header.authorization===undefined){
-      response.status(403).json({
-        status:false,
-        message:"you are not allow to access this pages"
-      })
-      return false;   
-    }
-    let token = request.header.authorization.split(" ")[1];
-    if(token === undefined){
-      if(request.header.authorization===undefined){
-        response.status(403).json({
-          status:false,
-          message:"you are not allow to access this pages"
-        })
-        return false;   
-      }
-    }
+    let id = response.user.id;
     try {
       let userList = await UserModel.find({});
-        response.json({
-          status:true,
-          users:userList
-        })       
-      
+      response.json({
+        status: true,
+        users: userList,
+        id,
+      });
     } catch (error) {
-     response.json({
-      status:false,
-      error,
-     })
+      response.json({
+        status: false,
+        error,
+      });
     }
   },
 };

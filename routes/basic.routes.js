@@ -1,6 +1,6 @@
 const BasicController = require("../controller/basic.controller");
 const { noUpload, uploadFile } = require("./middleware");
-const { loginValidation } = require("./vaildator");
+const { loginValidation, checkUser } = require("./vaildator");
 const BasicRouter = require("express").Router();
 
 BasicRouter.get("/", BasicController.homePage);
@@ -21,7 +21,7 @@ BasicRouter.post(
   "/api/get-users",
   BasicController.apiGetUser
 );
-BasicRouter.get("/api/get-users", BasicController.apiGetUser);
+BasicRouter.get("/api/get-users",checkUser, BasicController.apiGetUser);
 
 BasicRouter.get("/api/get-product", BasicController.getProduct);
 BasicRouter.post(
